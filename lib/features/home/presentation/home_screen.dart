@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:suitmedia_assessment/core/base_widgets/base_appbar.dart';
 import 'package:suitmedia_assessment/core/base_widgets/base_web_view.dart';
+import 'package:suitmedia_assessment/core/base_widgets/flexible_singlechildscrollview.dart';
 import 'package:suitmedia_assessment/core/ext/ctx_ext.dart';
 import 'package:suitmedia_assessment/core/theme/color_theme.dart';
 import 'package:suitmedia_assessment/features/home/presentation/cubit/home_cubit.dart';
@@ -28,27 +29,29 @@ class HomeScreen extends StatelessWidget {
         appBar: BaseAppBar(context, title: "Home"),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
-          child: Column(
-            children: [
-              _WelcomeText(name: name),
-              const Expanded(child: _ProfileSection()),
-              Builder(builder: (innerCtx) {
-                final cubit = innerCtx.read<HomeCubit>();
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 13),
-                  child: PrimaryButton(
-                      text: "Choose a user",
-                      onPressed: () async {
-                        final result = await context.navigator
-                            .pushNamed(UserListScreen.routeName);
-                        if (result is User) {
-                          cubit.changeCurrentUser(result);
-                        }
-                      }),
-                );
-              })
-            ],
+          child: FlexibleSingleChildScrollView(
+            child: Column(
+              children: [
+                _WelcomeText(name: name),
+                const _ProfileSection(),
+                Builder(builder: (innerCtx) {
+                  final cubit = innerCtx.read<HomeCubit>();
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 13),
+                    child: PrimaryButton(
+                        text: "Choose a user",
+                        onPressed: () async {
+                          final result = await context.navigator
+                              .pushNamed(UserListScreen.routeName);
+                          if (result is User) {
+                            cubit.changeCurrentUser(result);
+                          }
+                        }),
+                  );
+                })
+              ],
+            ),
           ),
         ),
       ),

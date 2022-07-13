@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:suitmedia_assessment/core/base_widgets/buttons/primary_button.dart';
+import 'package:suitmedia_assessment/core/base_widgets/flexible_singlechildscrollview.dart';
 import 'package:suitmedia_assessment/core/base_widgets/form/base_text_field.dart';
 import 'package:suitmedia_assessment/core/ext/ctx_ext.dart';
 import 'package:suitmedia_assessment/core/ext/string_ext.dart';
@@ -18,18 +19,23 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: double.infinity,
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/background.png"), fit: BoxFit.cover)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              _UserIcon(),
-              SizedBox(height: 50),
-              _Form(),
-            ],
+          child: FlexibleSingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                SizedBox(height: 50),
+                _UserIcon(),
+                SizedBox(height: 50),
+                _Form(),
+                SizedBox(height: 50)
+              ],
+            ),
           ),
         ),
       ),

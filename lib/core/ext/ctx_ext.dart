@@ -6,4 +6,6 @@ extension ContextExtension on BuildContext {
   NavigatorState get navigator => Navigator.of(this);
 
   dynamic get navigationArgs => ModalRoute.of(this)!.settings.arguments;
+
+  Size get size => MediaQuery.of(this).size;
 }
